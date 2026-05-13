@@ -1,0 +1,26 @@
+<%- include('partials/header') %>
+
+<section class="login-page">
+  <div class="login-panel">
+    <a class="back" href="/login">←</a>
+    <a class="logo" href="/"><span>чистота</span></a>
+    <h1>Вход администратора</h1>
+    <p>Введите данные администратора, чтобы перейти в панель управления сайтом.</p>
+    <% if (error === 'login') { %>
+      <div class="form-alert">Неверная почта или пароль администратора.</div>
+    <% } else if (error === 'admin') { %>
+      <div class="form-alert">У этого аккаунта нет прав администратора.</div>
+    <% } else if (error === 'form') { %>
+      <div class="form-alert">Заполните почту и пароль.</div>
+    <% } %>
+    <form class="login-form" action="/admin-login" method="post">
+      <input name="email" placeholder="Email администратора" required>
+      <input type="password" name="password" placeholder="Пароль" required>
+      <button class="btn accent" type="submit">Войти в админку</button>
+    </form>
+    <a class="btn outline admin-login-btn" href="/login">Вернуться ко входу клиента</a>
+    <small>Админ: admin@chistota.ru / admin123</small>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,102 @@
+<%- include('partials/header') %>
+
+<section class="account-hero">
+  <div>
+    <p class="breadcrumbs">Главная / Личный кабинет</p>
+    <h1>Личный кабинет</h1>
+  </div>
+  <p>Здравствуйте, <%= currentUser.name %>. Здесь можно управлять профилем, смотреть активные заявки, историю уборок и повторять заказы.</p>
+</section>
+
+<section class="account-grid">
+  <aside class="account-menu">
+    <h2><%= currentUser.name %></h2>
+    <span><%= currentUser.email %></span>
+    <span><%= currentUser.phone %></span>
+    <a href="#active">Активные заявки</a>
+    <a href="#history">История уборок</a>
+    <a href="#profile">Профиль</a>
+    <a href="#repeat">Повторить заказ</a>
+  </aside>
+
+  <div class="account-content">
+    <section id="active" class="account-block">
+      <div class="block-head">
+        <h2>Активные заявки</h2>
+        <a class="btn light" href="/contacts">Связаться</a>
+      </div>
+      <div class="account-cards">
+        <% if (!active.length) { %>
+          <p>Активных заявок пока нет.</p>
+        <% } %>
+        <% active.forEach((order) => { %>
+          <article class="account-order">
+            <b><%= order.title %></b>
+            <span><%= new Date(order.cleaning_date).toLocaleDateString('ru-RU') %> в <%= order.cleaning_time %></span>
+            <span><%= order.area %> м² · статус: <%= statusLabel(order.status).toLowerCase() %></span>
+            <details>
+              <summary>Детали уборки</summary>
+              <p>Адрес: <%= order.address %></p>
+              <p>Комнат: <%= order.rooms %>, окон: <%= order.windows %></p>
+              <p>Пожелания: <%= order.wishes || 'нет' %></p>
+              <p>Стоимость: <%= order.total_price.toLocaleString('ru-RU') %> ₽</p>
+            </details>
+          </article>
+        <% }) %>
+      </div>
+    </section>
+
+    <section id="history" class="account-block">
+      <h2>История уборок</h2>
+      <div class="history-list">
+        <% if (!history.length) { %>
+          <p>Прошлых уборок пока нет.</p>
+        <% } %>
+        <% history.forEach((order) => { %>
+          <div>
+            <b><%= order.title %></b>
+            <span><%= new Date(order.cleaning_date).toLocaleDateString('ru-RU') %></span>
+            <strong><%= order.total_price.toLocaleString('ru-RU') %> ₽</strong>
+          </div>
+        <% }) %>
+      </div>
+    </section>
+
+    <section id="profile" class="account-block profile-edit">
+      <h2>Профиль</h2>
+      <form action="/account/profile" method="post">
+        <label><span>Имя</span><input name="name" value="<%= currentUser.name %>" required></label>
+        <label><span>Email</span><input name="email" value="<%= currentUser.email %>" required></label>
+        <label><span>Телефон</span><input name="phone" value="<%= currentUser.phone %>"></label>
+        <button class="btn dark" type="submit">Сохранить профиль</button>
+      </form>
+    </section>
+  </div>
+</section>
+
+<section id="repeat" class="repeat-order">
+  <div>
+    <h2>Повторить заказ</h2>
+    <p>Выберите услугу, дату, время и отправьте новую заявку из личного кабинета.</p>
+  </div>
+  <form action="/orders" method="post">
+    <select name="service_id">
+      <% services.forEach((service) => { %>
+        <option value="<%= service.id %>"><%= service.title %></option>
+      <% }) %>
+    </select>
+    <input type="hidden" name="client_name" value="<%= currentUser.name %>">
+    <input type="hidden" name="phone" value="<%= currentUser.phone %>">
+    <input type="hidden" name="email" value="<%= currentUser.email %>">
+    <input type="number" name="area" value="60" placeholder="Площадь">
+    <input type="number" name="rooms" value="2" placeholder="Комнаты">
+    <input type="number" name="windows" value="0" placeholder="Окна">
+    <input type="time" name="cleaning_time" value="10:00">
+    <input type="date" name="cleaning_date" required>
+    <input name="address" placeholder="Адрес" required>
+    <textarea name="wishes" placeholder="Пожелания"></textarea>
+    <button class="btn dark" type="submit">Повторить</button>
+  </form>
+</section>
+
+<%- include('partials/footer') %>

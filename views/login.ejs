@@ -1,0 +1,37 @@
+<%- include('partials/header') %>
+
+<section class="login-page">
+  <div class="login-panel">
+    <a class="back" href="/">←</a>
+    <a class="logo" href="/"><span>чистота</span></a>
+    <h1>Войти в аккаунт</h1>
+    <p>Введите почту и пароль клиента, чтобы открыть личный кабинет.</p>
+    <% if (error === 'login') { %>
+      <div class="form-alert">Неверная почта или пароль. Проверьте данные и попробуйте ещё раз.</div>
+    <% } else if (error === 'admin') { %>
+      <div class="form-alert">Это аккаунт администратора. Для него используйте отдельный вход.</div>
+    <% } else if (error === 'form') { %>
+      <div class="form-alert">Заполните обязательные поля.</div>
+    <% } else if (error === 'exists') { %>
+      <div class="form-alert">Пользователь с такой почтой уже существует.</div>
+    <% } %>
+    <form class="login-form" action="/login" method="post">
+      <input name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Пароль" required>
+      <button class="btn accent" type="submit">Продолжить</button>
+    </form>
+    <a class="btn outline admin-login-btn" href="/admin-login">Войти как администратор</a>
+    <button class="text-btn" data-toggle-register type="button">Создать аккаунт</button>
+    <form class="register-form hidden" action="/register" method="post">
+      <input name="name" placeholder="Имя" required>
+      <input name="email" placeholder="Email" required>
+      <input name="phone" placeholder="Телефон">
+      <input name="address" placeholder="Адрес">
+      <input type="password" name="password" placeholder="Пароль" required>
+      <button class="btn dark" type="submit">Зарегистрироваться</button>
+    </form>
+    <small>Админ: admin@chistota.ru / admin123<br>Пользователь: elena@mail.ru / user123</small>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

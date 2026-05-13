@@ -1,0 +1,50 @@
+<%- include('partials/header') %>
+
+<section class="page-hero compact">
+  <div>
+    <p class="breadcrumbs">Главная / Расчёт</p>
+    <h1>Рассчитайте стоимость уборки за 1 минуту</h1>
+    <p>Если вы уже понимаете задачу, заполните форму. Калькулятор сразу покажет примерную стоимость, а менеджер перезвонит, чтобы подтвердить заявку.</p>
+  </div>
+</section>
+
+<section class="calculator-single">
+  <form class="full-calc-form" action="/orders" method="post" data-calc-form>
+    <div class="calc-fields">
+      <label>
+        <span>Вид услуги</span>
+        <select name="service_id" data-service-select required>
+          <% services.forEach((service) => { %>
+            <option value="<%= service.id %>" data-price="<%= service.base_price %>" <%= String(form.service || form.service_id || '') === String(service.id) ? 'selected' : '' %>><%= service.title %></option>
+          <% }) %>
+        </select>
+      </label>
+      <label><span>Площадь, м²</span><input data-calc-input type="number" min="1" name="area" value="<%= form.area || 60 %>" required></label>
+      <label><span>Количество комнат</span><input data-calc-input type="number" min="1" name="rooms" value="<%= form.rooms || 2 %>"></label>
+      <label><span>Количество окон</span><input data-calc-input type="number" min="0" name="windows" value="<%= form.windows || 0 %>"></label>
+      <label><span>Дата</span><input type="date" name="cleaning_date" required></label>
+      <label><span>Время</span><input type="time" name="cleaning_time" required></label>
+      <label>
+        <span>Срочность</span>
+        <select name="urgency" data-calc-input>
+          <option value="standard">Обычный выезд</option>
+          <option value="urgent">Срочный выезд +25%</option>
+        </select>
+      </label>
+      <label class="checkbox"><input data-calc-input type="checkbox" name="pets"> Есть животные</label>
+      <label><span>Имя</span><input name="client_name" value="<%= currentUser?.name || '' %>" required></label>
+      <label><span>Телефон</span><input name="phone" value="<%= currentUser?.phone || '' %>" required></label>
+      <label><span>Email</span><input name="email" value="<%= currentUser?.email || '' %>"></label>
+      <label><span>Адрес</span><input name="address" value="<%= currentUser?.address || '' %>" required></label>
+      <label class="wide"><span>Пожелания клиента</span><textarea name="wishes"></textarea></label>
+    </div>
+    <aside class="calc-total-card">
+      <span>Предварительная стоимость</span>
+      <strong data-calc-total>0 ₽</strong>
+      <p>Цена меняется от площади, количества комнат, окон, срочности и дополнительных условий.</p>
+      <button class="btn accent" type="submit">Отправить заявку</button>
+    </aside>
+  </form>
+</section>
+
+<%- include('partials/footer') %>

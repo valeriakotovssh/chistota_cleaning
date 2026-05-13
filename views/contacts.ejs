@@ -1,0 +1,33 @@
+<%- include('partials/header') %>
+
+<section class="contacts-grid">
+  <div>
+    <h1>Контакты</h1>
+    <p>Свяжитесь с нами удобным способом или оставьте заявку. Менеджер уточнит детали объекта, подберёт услугу и рассчитает стоимость.</p>
+    <ul class="contact-list">
+      <li><b>Телефон</b><span>+7 495 123-45-67</span></li>
+      <li><b>Почта</b><span>mail@chistota.ru</span></li>
+      <li><b>Адрес</b><span>Иркутск, ул. Ленина, 18</span></li>
+      <li><b>График</b><span>Пн-Сб: 09:00-20:00</span></li>
+      <li><b>Соцсети</b><span>@chistota_dv</span></li>
+    </ul>
+  </div>
+  <%- include('partials/map') %>
+  <div class="contact-card">
+    <span class="tag">Онлайн-запись</span>
+    <h2>Не определились с видом уборки?</h2>
+    <p>Оставьте контакты и удобное время, менеджер подскажет услугу и рассчитает стоимость.</p>
+    <%- include('partials/contact-form', { source: 'contacts' }) %>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Филиалы</h2>
+  <div class="cards three">
+    <article class="branch-card"><b>Центральный</b><span>ул. Ленина, 18 · офис и выездные бригады</span></article>
+    <article class="branch-card"><b>Академгородок</b><span>Обслуживание квартир, коттеджей и офисов</span></article>
+    <article class="branch-card"><b>Правый берег</b><span>Клининг для кафе, салонов и магазинов</span></article>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

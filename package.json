@@ -1,0 +1,17 @@
+{
+  "name": "chistota-cleaning-course",
+  "version": "1.0.0",
+  "description": "Course project: cleaning company website with calculator, admin panel and SQLite database.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "node-cache": "^5.1.2",
+    "sqlite3": "^5.1.7"
+  }
+}

@@ -1,0 +1,18 @@
+<%
+const icons = {
+  phone: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.5 3 3.7 5.2 6.6 6.6l2.2-2.2c.3-.3.8-.4 1.2-.3 1.3.4 2.6.6 4 .6.7 0 1.2.5 1.2 1.2v3.6c0 .7-.5 1.2-1.2 1.2C10.3 22 2 13.7 2 3.4 2 2.7 2.5 2 3.2 2h3.6C7.5 2 8 2.5 8 3.2c0 1.4.2 2.8.6 4 .1.4 0 .9-.3 1.2l-1.7 2.4Z"/></svg>',
+  telegram: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.8 3.3 18.5 20c-.2 1.2-.9 1.5-1.9.9l-5.2-3.8-2.5 2.4c-.3.3-.5.5-1 .5l.4-5.4 9.9-8.9c.4-.4-.1-.6-.7-.3L5.2 13.1 0 11.5c-1.1-.4-1.1-1.1.2-1.6L20.4 2.1c.9-.3 1.7.2 1.4 1.2Z"/></svg>',
+  instagram: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.2 2h9.6A5.2 5.2 0 0 1 22 7.2v9.6a5.2 5.2 0 0 1-5.2 5.2H7.2A5.2 5.2 0 0 1 2 16.8V7.2A5.2 5.2 0 0 1 7.2 2Zm0 2A3.2 3.2 0 0 0 4 7.2v9.6A3.2 3.2 0 0 0 7.2 20h9.6a3.2 3.2 0 0 0 3.2-3.2V7.2A3.2 3.2 0 0 0 16.8 4H7.2Zm4.8 3.4a4.6 4.6 0 1 1 0 9.2 4.6 4.6 0 0 1 0-9.2Zm0 2a2.6 2.6 0 1 0 0 5.2 2.6 2.6 0 0 0 0-5.2Zm5-2.7a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2Z"/></svg>',
+  logout: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3h9a1 1 0 0 1 1 1v3h-2V5H5v14h7v-2h2v3a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Zm13.6 5.4L22.2 13l-4.6 4.6-1.4-1.4 2.2-2.2H9v-2h9.4l-2.2-2.2 1.4-1.4Z"/></svg>',
+  home: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6h-4v6H5a1 1 0 0 1-1-1v-9.5Zm2 .9V19h2v-6h8v6h2v-7.6l-6-4.9-6 4.9Z"/></svg>',
+  booking: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10v3h3v17H4V5h3V2Zm2 3h6V4H9v1Zm-3 2v13h12V7H6Zm3 3h6v2H9v-2Zm0 4h6v2H9v-2Z"/></svg>',
+  star: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.8 2.8 5.7 6.3.9-4.5 4.4 1.1 6.2-5.7-3-5.7 3 1.1-6.2-4.5-4.4 6.3-.9L12 2.8Z"/></svg>',
+  user: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Zm0-2a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm9 11H3v-2c0-3.3 4-6 9-6s9 2.7 9 6v2Zm-2.2-2c-.6-2.2-3.4-4-6.8-4s-6.2 1.8-6.8 4h13.6Z"/></svg>',
+  wifi: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 18.5 9.7 16.2a3.2 3.2 0 0 1 4.6 0L12 18.5Zm-5.2-5.2a7.4 7.4 0 0 1 10.4 0l-1.5 1.5a5.2 5.2 0 0 0-7.4 0l-1.5-1.5Zm-3.7-3.7a12.6 12.6 0 0 1 17.8 0l-1.5 1.5a10.5 10.5 0 0 0-14.8 0L3.1 9.6ZM12 22a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z"/></svg>',
+  terrace: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 9h18l-9-6Zm0 2.4L14.4 7H9.6L12 5.4ZM5 11h2v8h3v-5h4v5h3v-8h2v10H5V11Z"/></svg>',
+  kitchen: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h2v8h2V2h2v8h2V2h2v7a5 5 0 0 1-4 4.9V22h-2v-8.1A5 5 0 0 1 7 9V2Zm11 12h2v8h-2v-8ZM4 13h4v9H6v-7H4v-2Z"/></svg>',
+  heat: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4V4Zm2 2v12h12V6H6Zm6 2a4 4 0 1 1 0 8 4 4 0 0 1 0-8Zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/></svg>',
+  pets: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 10a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm6-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm6 3a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM7 18.5c0-2.5 2.3-5.5 5-5.5s5 3 5 5.5c0 1.5-1.1 2.5-2.6 2.5-.9 0-1.4-.4-2.4-.4s-1.5.4-2.4.4C8.1 21 7 20 7 18.5Z"/></svg>',
+  check: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.2 16.6-4.1-4.1 1.4-1.4 2.7 2.7 8.3-8.3 1.4 1.4-9.7 9.7Z"/></svg>'
+};
+%><%- icons[name] %>

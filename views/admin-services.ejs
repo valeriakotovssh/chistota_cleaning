@@ -1,0 +1,57 @@
+<%- include('partials/header') %>
+
+<section class="admin-hero">
+  <h1>Админка: услуги</h1>
+  <p>CRUD-экран для управления услугами: поиск, фильтр, сортировка, добавление, редактирование и удаление карточек услуг.</p>
+  <div class="admin-nav">
+    <a href="/admin">Главная</a>
+    <a href="/admin/orders">Заявки</a>
+    <a href="/admin/reviews">Отзывы</a>
+    <a href="/admin/calendar">Календарь</a>
+  </div>
+</section>
+
+<section class="admin-filter">
+  <span>Поиск по услугам</span>
+  <span>Категория: все</span>
+  <span>Сортировка: цена</span>
+  <span>10 / 20 / 100</span>
+</section>
+
+<section class="admin-table">
+  <div class="row head"><span>Название</span><span>Категория</span><span>Цена</span><span>Статус</span><span>Действия</span></div>
+  <% services.forEach((service) => { %>
+    <div class="row">
+      <span><%= service.title %></span>
+      <span><%= service.category %></span>
+      <span>от <%= service.base_price.toLocaleString('ru-RU') %> ₽</span>
+      <span><%= statusLabel(service.status) %></span>
+      <span class="actions">
+        <a href="/admin/services?edit=<%= service.id %>">Ред.</a>
+        <form action="/admin/services/<%= service.id %>/delete" method="post"><button>Удалить</button></form>
+      </span>
+    </div>
+  <% }) %>
+</section>
+
+<section class="edit-card">
+  <h2><%= edit ? 'Карточка редактирования' : 'Добавить услугу' %></h2>
+  <form action="/admin/services" method="post">
+    <% if (edit) { %><input type="hidden" name="id" value="<%= edit.id %>"><% } %>
+    <label><span>Название услуги</span><input name="title" value="<%= edit?.title || '' %>" required></label>
+    <label><span>Цена от</span><input type="number" name="base_price" value="<%= edit?.base_price || '' %>" required></label>
+    <label><span>Категория</span><input name="category" value="<%= edit?.category || '' %>" required></label>
+    <label class="wide"><span>Краткое описание</span><input name="description" value="<%= edit?.description || '' %>" required></label>
+    <label class="wide"><span>Что входит в услугу</span><input name="includes" value="<%= edit?.includes || '' %>" required></label>
+    <label><span>Статус</span>
+      <select name="status">
+        <option value="active" <%= edit?.status === 'active' ? 'selected' : '' %>>Активна</option>
+        <option value="draft" <%= edit?.status === 'draft' ? 'selected' : '' %>>Черновик</option>
+      </select>
+    </label>
+    <button class="btn dark" type="submit">Сохранить изменения</button>
+    <a class="btn light" href="/admin/services">Отменить</a>
+  </form>
+</section>
+
+<%- include('partials/footer') %>

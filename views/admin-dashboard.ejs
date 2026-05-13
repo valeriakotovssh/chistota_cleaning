@@ -1,0 +1,31 @@
+<%- include('partials/header') %>
+
+<section class="admin-hero">
+  <h1>Админка</h1>
+  <p>Здесь администратор смотрит услуги, заявки, отзывы и календарь уборок.</p>
+  <div class="admin-nav">
+    <a href="/admin/services">Услуги</a>
+    <a href="/admin/orders">Заявки</a>
+    <a href="/admin/reviews">Отзывы</a>
+    <a href="/admin/calendar">Календарь</a>
+  </div>
+</section>
+
+<section class="cards four section">
+  <article class="info-card"><small>Услуги</small><b><%= stats.services %></b></article>
+  <article class="info-card"><small>Заявки</small><b><%= stats.orders %></b></article>
+  <article class="info-card"><small>Отзывы на модерации</small><b><%= stats.reviews %></b></article>
+  <article class="info-card"><small>Пользователи</small><b><%= stats.users %></b></article>
+</section>
+
+<section class="section">
+  <h2>Последние заявки</h2>
+  <div class="admin-table">
+    <div class="row head"><span>Услуга</span><span>Клиент</span><span>Дата</span><span>Статус</span></div>
+    <% orders.forEach((order) => { %>
+      <div class="row"><span><%= order.title %></span><span><%= order.client_name %></span><span><%= new Date(order.cleaning_date).toLocaleDateString('ru-RU') %></span><span><%= statusLabel(order.status) %></span></div>
+    <% }) %>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

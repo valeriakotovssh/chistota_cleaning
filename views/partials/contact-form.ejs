@@ -1,0 +1,41 @@
+<form class="mini-form simple-request-form" action="/contact" method="post">
+  <input type="hidden" name="source" value="<%= typeof source !== 'undefined' ? source : 'form' %>">
+  <% if (typeof serviceId !== 'undefined' && serviceId) { %>
+    <input type="hidden" name="service_id" value="<%= serviceId %>">
+  <% } else if (typeof services !== 'undefined' && services.length) { %>
+    <label class="wide">
+      <span>Какая услуга интересует</span>
+      <select name="service_id">
+        <option value="">Пока не знаю, нужна консультация</option>
+        <% services.forEach((service) => { %>
+          <option value="<%= service.id %>"><%= service.title %></option>
+        <% }) %>
+      </select>
+    </label>
+  <% } %>
+  <label>
+    <span>Имя</span>
+    <input name="name" required>
+  </label>
+  <label>
+    <span>Телефон</span>
+    <input name="phone" required placeholder="+7 999 999 99 99">
+  </label>
+  <label>
+    <span>Email</span>
+    <input type="email" name="email" placeholder="mail@example.ru">
+  </label>
+  <label>
+    <span>Дата</span>
+    <input type="date" name="preferred_date">
+  </label>
+  <label>
+    <span>Время</span>
+    <input type="time" name="preferred_time">
+  </label>
+  <label class="wide">
+    <span>Пожелания</span>
+    <textarea name="message"></textarea>
+  </label>
+  <button class="btn dark" type="submit">Отправить заявку</button>
+</form>

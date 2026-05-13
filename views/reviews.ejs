@@ -1,0 +1,38 @@
+<%- include('partials/header') %>
+
+<section class="page-hero compact">
+  <h1>Отзывы</h1>
+</section>
+
+<section class="cards three section">
+  <% reviews.forEach((review) => { %>
+    <article class="review-card">
+      <div class="review-top">
+        <span class="tag blue">Оценка <%= review.rating || 5 %>/5</span>
+        <span class="date"><%= new Date(review.created_at).toLocaleDateString('ru-RU') %></span>
+      </div>
+      <h3><%= review.author %></h3>
+      <p><%= review.text %></p>
+    </article>
+  <% }) %>
+</section>
+
+<section class="cta review-form">
+  <div>
+    <h2>Оставить отзыв</h2>
+  </div>
+  <form class="mini-form" action="/reviews" method="post">
+    <label><span>Имя</span><input name="author" required></label>
+    <label><span>Ваш отзыв</span><input name="text" required></label>
+    <label><span>Рейтинг</span><input type="number" name="rating" min="1" max="5" value="5"></label>
+    <button class="btn accent" type="submit">Продолжить</button>
+  </form>
+</section>
+
+<section class="section">
+  <h2>Наши филиалы</h2>
+  <p class="lead">Наши выездные бригады работают по разным районам Иркутска.</p>
+  <%- include('partials/map') %>
+</section>
+
+<%- include('partials/footer') %>

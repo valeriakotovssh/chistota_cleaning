@@ -1,0 +1,61 @@
+<%- include('partials/header') %>
+
+<section class="admin-hero">
+  <h1>Календарь уборок</h1>
+  <p>Месячное расписание заявок. Можно посмотреть заявки по дням и сразу добавить новую уборку.</p>
+  <div class="admin-nav">
+    <a href="/admin">Главная</a>
+    <a href="/admin/services">Услуги</a>
+    <a href="/admin/orders">Заявки</a>
+    <a href="/admin/reviews">Отзывы</a>
+  </div>
+</section>
+
+<section class="calendar-month">
+  <div class="calendar-month-head">
+    <a class="slider-arrow" href="/admin/calendar?month=<%= month.prev %>">‹</a>
+    <h2><%= month.title %></h2>
+    <a class="slider-arrow" href="/admin/calendar?month=<%= month.next %>">›</a>
+  </div>
+  <div class="month-grid">
+    <% month.days.forEach((day) => { const dayOrders = orders.filter((order) => order.cleaning_date === day.date); %>
+      <article class="month-day">
+        <b><%= day.day %></b>
+        <% dayOrders.forEach((order) => { %>
+          <details class="calendar-order">
+            <summary><%= order.cleaning_time %> · <%= order.title %></summary>
+            <p><%= order.client_name %></p>
+            <p><%= order.address %></p>
+            <p><%= statusLabel(order.status) %></p>
+          </details>
+        <% }) %>
+      </article>
+    <% }) %>
+  </div>
+</section>
+
+<section class="edit-card calendar-add">
+  <h2>Добавить уборку</h2>
+  <form action="/orders" method="post">
+    <label><span>Услуга</span>
+      <select name="service_id">
+        <% services.forEach((service) => { %>
+          <option value="<%= service.id %>"><%= service.title %></option>
+        <% }) %>
+      </select>
+    </label>
+    <label><span>Имя</span><input name="client_name" required></label>
+    <label><span>Телефон</span><input name="phone" required></label>
+    <label><span>Email</span><input name="email"></label>
+    <label><span>Адрес</span><input name="address" required></label>
+    <label><span>Площадь</span><input type="number" name="area" value="60"></label>
+    <label><span>Комнаты</span><input type="number" name="rooms" value="2"></label>
+    <label><span>Окна</span><input type="number" name="windows" value="0"></label>
+    <label><span>Дата</span><input type="date" name="cleaning_date" required></label>
+    <label><span>Время</span><input type="time" name="cleaning_time" required></label>
+    <label class="wide"><span>Пожелания</span><textarea name="wishes"></textarea></label>
+    <button class="btn dark" type="submit">Добавить заявку</button>
+  </form>
+</section>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,94 @@
+<%- include('partials/header') %>
+
+<section class="hero">
+  <div class="hero-text">
+    <p class="eyebrow">Работаем с 2003</p>
+    <h1>Клининг с уникальным подходом</h1>
+    <p>От генеральной уборки до мойки фасадов. Комплексный клининг премиум-класса для дома и бизнеса.</p>
+    <a class="btn accent" href="/calculator">Рассчитать стоимость ↗</a>
+  </div>
+  <div class="hero-visual">
+    <img src="/img/cleaner-hero.jpg" alt="Клинер">
+    <div class="hero-badge"><span>Профи<br>уборки</span></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Услуги</h2>
+    <div class="section-actions">
+      <a href="/services">Смотреть все</a>
+      <button class="slider-arrow" data-slide-prev type="button" aria-label="Назад">‹</button>
+      <button class="slider-arrow" data-slide-next type="button" aria-label="Вперед">›</button>
+    </div>
+  </div>
+  <div class="slider-wrap">
+  <div class="service-slider" data-slider>
+    <% services.forEach((service, index) => { %>
+      <article class="service-card">
+        <img src="<%= service.image %>" alt="<%= service.title %>">
+        <h3><%= service.title %></h3>
+        <p><%= service.description %></p>
+        <a class="price-chip <%= index === 1 ? 'hot' : '' %>" href="/services/<%= service.slug %>">
+          от <%= service.base_price.toLocaleString('ru-RU') %> ₽ ↗
+        </a>
+      </article>
+    <% }) %>
+  </div>
+  </div>
+</section>
+
+<section class="split-section">
+  <div class="photo-stack">
+    <img src="/img/cleaning-process.jpg" alt="Уборка квартиры">
+    <img src="/img/cleaning-small-1.jpg" alt="Клининг кухни">
+    <img src="/img/cleaning-small-2.jpg" alt="Клининг офиса">
+  </div>
+  <div>
+    <h2>Качество на каждом этапе</h2>
+    <ol class="steps">
+      <li><b>Консультация и оценка объекта</b><span>Уточняем площадь, задачи, тип поверхностей и пожелания клиента.</span></li>
+      <li><b>Планирование и подготовка</b><span>Подбираем средства, инвентарь, команду и удобное время выезда.</span></li>
+      <li><b>Выполнение и контроль качества</b><span>Проводим уборку и финально проверяем результат вместе с клиентом.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="statement">
+  <h2>Чистота - это профессиональный клининг</h2>
+  <p>Мы предоставляем услуги уборки любой сложности: от базовой до специализированной, включая чистку мебели, мойку окон и обработку поверхностей.</p>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Что думают о нас клиенты?</h2>
+    <a href="/reviews">Смотреть все</a>
+  </div>
+  <div class="cards three">
+    <% reviews.forEach((review) => { %>
+      <article class="review-card">
+        <span class="stars">★★★★★</span>
+        <h3><%= review.author %></h3>
+        <small><%= review.role %></small>
+        <p><%= review.text %></p>
+      </article>
+    <% }) %>
+  </div>
+</section>
+
+<section class="cta">
+  <div>
+    <span class="tag">Онлайн-запись</span>
+    <h2>Не определились с видом уборки?</h2>
+    <p>Оставьте контакты, удобную дату и пожелания. Менеджер свяжется с вами в течение 5 минут и подскажет подходящую услугу.</p>
+  </div>
+  <%- include('partials/contact-form', { source: 'home', services }) %>
+</section>
+
+<section class="section">
+  <h2>Наши филиалы</h2>
+  <p class="lead">В Иркутске работает несколько выездных бригад. Менеджер подберёт ближайший филиал под ваш адрес.</p>
+  <%- include('partials/map') %>
+</section>
+
+<%- include('partials/footer') %>

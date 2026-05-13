@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= title ? `${title} | Чистота` : 'Чистота' %></title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Unbounded:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="/">
+      <span>чистота</span>
+    </a>
+    <nav class="nav">
+      <a href="/">Главная</a>
+      <a href="/services">Услуги</a>
+      <a href="/calculator">Расчёт</a>
+      <a href="/about">О компании</a>
+      <a href="/reviews">Отзывы</a>
+      <a href="/contacts">Контакты</a>
+    </nav>
+    <div class="header-user">
+      <% if (currentUser) { %>
+        <a class="user-name" href="<%= currentUser.role === 'admin' ? '/admin' : '/account' %>">
+          <%= currentUser.role === 'admin' ? 'Администратор' : `${currentUser.name} · Клиент` %>
+        </a>
+        <a class="login-link" href="/logout">Выйти</a>
+      <% } else { %>
+        <a class="login-link" href="/login">Вход</a>
+      <% } %>
+    </div>
+  </header>
+  <main>

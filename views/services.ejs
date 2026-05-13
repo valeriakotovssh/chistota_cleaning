@@ -1,0 +1,47 @@
+<%- include('partials/header') %>
+
+<section class="page-hero compact">
+  <div>
+    <p class="breadcrumbs">Главная / Услуги</p>
+    <h1>Услуги</h1>
+    <p>Выберите подходящий формат уборки. На странице каждой услуги есть описание, состав работ и форма заявки.</p>
+  </div>
+</section>
+
+<section class="wide-image">
+  <img src="/img/services-wide.jpg" alt="Клинеры в офисе">
+</section>
+
+<section class="statement left">
+  <h2>Вы можете рассчитать стоимость прямо сейчас</h2>
+  <a class="btn accent" href="/calculator">Рассчитать стоимость</a>
+  <a class="btn light" href="/contacts">Записаться</a>
+</section>
+
+<section class="section">
+  <h2>Базовые услуги</h2>
+  <div class="price-list service-price-list">
+    <% services.filter(s => s.category !== 'Бизнес').forEach((service) => { %>
+      <div class="price-row">
+        <span><%= service.title %></span>
+        <b>от <%= service.base_price.toLocaleString('ru-RU') %> руб</b>
+        <a class="details-link" href="/services/<%= service.slug %>">Подробнее</a>
+      </div>
+    <% }) %>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Услуги для бизнеса</h2>
+  <div class="price-list service-price-list">
+    <% services.filter(s => s.category === 'Бизнес').forEach((service) => { %>
+      <div class="price-row">
+        <span><%= service.title %></span>
+        <b>от <%= service.base_price.toLocaleString('ru-RU') %> руб</b>
+        <a class="details-link" href="/services/<%= service.slug %>">Подробнее</a>
+      </div>
+    <% }) %>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,45 @@
+<%- include('partials/header') %>
+
+<section class="page-hero service-hero">
+  <div>
+    <p class="breadcrumbs">Главная / Услуги / <%= service.title %></p>
+    <h1><%= service.title %></h1>
+    <p><%= service.details %></p>
+    <div class="hero-buttons">
+      <a class="btn dark" href="/calculator?service=<%= service.id %>">Рассчитать стоимость</a>
+      <a class="btn outline" href="/contacts">Получить консультацию</a>
+    </div>
+  </div>
+</section>
+
+<section class="cards two service-meta section">
+  <article class="info-card"><b>Цена</b><span>от <%= service.base_price.toLocaleString('ru-RU') %> ₽</span></article>
+  <article class="info-card"><b>Категория</b><span><%= service.category %></span></article>
+</section>
+
+<section class="split-section">
+  <img class="rounded-img" src="<%= service.image %>" alt="<%= service.title %>">
+  <div>
+    <h2>Что входит в услугу</h2>
+    <ul class="check-list">
+      <% service.includesList.forEach((item) => { %>
+        <li><%= item %></li>
+      <% }) %>
+    </ul>
+  </div>
+</section>
+
+<section class="split-section pale">
+  <div>
+    <h2>Как проходит стандартный выезд</h2>
+    <ol class="clean-list">
+      <li>Осмотр объекта и уточнение задач</li>
+      <li>Подбор средств под поверхности</li>
+      <li>Основная уборка и контроль качества</li>
+      <li>Финальная проверка вместе с клиентом</li>
+    </ol>
+  </div>
+  <%- include('partials/contact-form', { source: 'service', serviceId: service.id }) %>
+</section>
+
+<%- include('partials/footer') %>

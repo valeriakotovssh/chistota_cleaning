@@ -1,0 +1,22 @@
+<%- include('partials/header') %>
+
+<section class="admin-hero">
+  <h1>Админка: отзывы</h1>
+  <p>Отзывы сначала попадают на модерацию, после одобрения появляются на сайте.</p>
+  <div class="admin-nav"><a href="/admin">Главная</a><a href="/admin/services">Услуги</a><a href="/admin/orders">Заявки</a></div>
+</section>
+
+<section class="cards three section">
+  <% reviews.forEach((review) => { %>
+    <form class="review-card" action="/admin/reviews/<%= review.id %>" method="post">
+      <span class="tag blue"><%= statusLabel(review.status) %></span>
+      <h3><%= review.author %></h3>
+      <p><%= review.text %></p>
+      <input type="hidden" name="status" value="approved">
+      <button class="btn dark" type="submit">Одобрить</button>
+      <button class="btn light" formaction="/admin/reviews/<%= review.id %>/delete">Отклонить</button>
+    </form>
+  <% }) %>
+</section>
+
+<%- include('partials/footer') %>

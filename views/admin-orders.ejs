@@ -1,0 +1,70 @@
+<%- include('partials/header') %>
+
+<section class="admin-hero">
+  <h1>Админка: заявки</h1>
+  <p>Здесь отдельно отображаются короткие заявки с сайта и полные заявки из калькулятора.</p>
+  <div class="admin-nav">
+    <a href="/admin">Главная</a>
+    <a href="/admin/services">Услуги</a>
+    <a href="/admin/reviews">Отзывы</a>
+    <a href="/admin/calendar">Календарь</a>
+  </div>
+</section>
+
+<section class="section admin-section">
+  <h2>Короткие заявки</h2>
+  <div class="simple-requests">
+    <% simpleRequests.forEach((request) => { %>
+      <form class="admin-request-card" action="/admin/requests/<%= request.id %>" method="post">
+        <div>
+          <b><%= request.name %></b>
+          <span><%= request.phone %></span>
+          <span><%= request.email || 'почта не указана' %></span>
+        </div>
+        <div>
+          <b><%= request.service_title || 'Нужна консультация' %></b>
+          <span><%= request.message || 'без пожеланий' %></span>
+        </div>
+        <input type="date" name="preferred_date" value="<%= request.preferred_date || '' %>">
+        <input type="time" name="preferred_time" value="<%= request.preferred_time || '' %>">
+        <select name="status">
+          <% ['new','confirmed','completed','cancelled'].forEach((status) => { %>
+            <option value="<%= status %>" <%= request.status === status ? 'selected' : '' %>><%= statusLabel(status) %></option>
+          <% }) %>
+        </select>
+        <textarea name="message"><%= request.message || '' %></textarea>
+        <button class="btn dark" type="submit">Сохранить</button>
+        <button class="link-danger" formaction="/admin/requests/<%= request.id %>/delete">Удалить</button>
+      </form>
+    <% }) %>
+  </div>
+</section>
+
+<section class="section admin-section">
+  <h2>Заявки из калькулятора</h2>
+  <div class="orders-list">
+    <% orders.forEach((order) => { %>
+      <form class="order-row" action="/admin/orders/<%= order.id %>" method="post">
+        <div>
+          <b><%= order.title %></b>
+          <span><%= order.client_name %> · <%= order.phone %></span>
+          <span><%= order.area %> м² · комнат: <%= order.rooms %> · окон: <%= order.windows %></span>
+          <span><%= order.address %></span>
+        </div>
+        <input type="date" name="cleaning_date" value="<%= order.cleaning_date %>">
+        <input type="time" name="cleaning_time" value="<%= order.cleaning_time %>">
+        <select name="status">
+          <% ['new','confirmed','in_work','completed','cancelled'].forEach((status) => { %>
+            <option value="<%= status %>" <%= order.status === status ? 'selected' : '' %>><%= statusLabel(status) %></option>
+          <% }) %>
+        </select>
+        <textarea name="wishes"><%= order.wishes || '' %></textarea>
+        <strong><%= order.total_price.toLocaleString('ru-RU') %> ₽</strong>
+        <button class="btn dark" type="submit">Сохранить</button>
+        <button class="link-danger" formaction="/admin/orders/<%= order.id %>/delete">Удалить</button>
+      </form>
+    <% }) %>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
